@@ -1,49 +1,71 @@
-# Simple Java Greeting Application
+# Spring Boot Greeting Application
 
-A simple Java Swing application that provides a graphical user interface for greeting users.
+A modern web application built with Spring Boot that provides a browser-based interface for greeting users.
 
 ## Project Description
 
-This application creates a simple GUI window where users can:
-1. Enter their name in a text field
-2. Click a "Greet" button
-3. See a personalized greeting message
+This web application demonstrates modern Spring Boot development practices with:
+1. RESTful web endpoints for form handling
+2. Responsive web interface using Thymeleaf templates
+3. Comprehensive test coverage
+4. CI/CD pipeline support with Jenkins
 
 ## Project Structure
 
 ```
 java-app/
-├── pom.xml                 # Maven project configuration file
-├── build.sh               # Build and run script
+├── pom.xml                    # Maven project configuration file
+├── Jenkinsfile               # Jenkins CI/CD pipeline configuration
 ├── src/
-│   └── main/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/
+│   │   │       └── example/
+│   │   │           └── GreetingApp.java  # Main Spring Boot application
+│   │   └── resources/
+│   │       ├── templates/
+│   │       │   └── greeting.html        # Thymeleaf template
+│   │       └── application.properties   # Application configuration
+│   └── test/
 │       └── java/
 │           └── com/
 │               └── example/
-│                   └── GreetingApp.java  # Main application code
+│                   └── GreetingAppTests.java  # Test suite
 ```
 
 ### File Descriptions
 
 - `pom.xml`: Maven project configuration file that defines:
   - Project coordinates (groupId, artifactId, version)
-  - Java version (17)
+  - Java version (21)
+  - Spring Boot dependencies
+  - Test dependencies
   - Build configuration
-  - Dependencies
-  - JAR packaging with main class definition
 
-- `build.sh`: Shell script that automates the build and run process
-  - Builds the project using Maven
-  - Runs the resulting JAR file
+- `Jenkinsfile`: CI/CD pipeline configuration:
+  - Automated build and test stages
+  - Code quality checks with SonarQube
+  - Deployment configurations for dev and prod
+  - Email notifications
 
-- `src/main/java/com/example/GreetingApp.java`: Main application source code
-  - Contains the GUI implementation using Java Swing
-  - Handles user input and displays greetings
-  - Uses Event Dispatch Thread for proper Swing application execution
+- `src/main/java/com/example/GreetingApp.java`: Main application source code:
+  - Spring Boot application class
+  - Web controller with REST endpoints
+  - Form handling logic
+
+- `src/main/resources/templates/greeting.html`: Web interface:
+  - Thymeleaf template for the greeting page
+  - Responsive design
+  - Form implementation
+
+- `src/test/java/com/example/GreetingAppTests.java`: Test suite:
+  - Controller tests
+  - Form submission tests
+  - Edge case handling tests
 
 ## Prerequisites
 
-- Java Development Kit (JDK) 17 or later
+- Java Development Kit (JDK) 21 or later
 - Maven 3.8 or later
 - Ubuntu or compatible Linux distribution
 
@@ -53,46 +75,74 @@ If you don't have Java and Maven installed, you can install them using:
 
 ```bash
 sudo apt update
-sudo apt install -y openjdk-17-jdk maven
+sudo apt install -y openjdk-21-jdk maven
 ```
 
-## Building and Running
+## Building and Testing
 
-There are two ways to build and run the application:
-
-### 1. Using the build script
-
-Simply run:
-```bash
-./build.sh
-```
-
-This will:
-- Clean and build the project with Maven
-- Run the resulting JAR file
-
-### 2. Manual commands
-
-Build the project:
+### Build the project:
 ```bash
 mvn clean package
 ```
 
-Run the application:
+### Run tests:
 ```bash
-java -jar target/greeting-app-1.0-SNAPSHOT.jar
+mvn test
+```
+
+The test suite includes:
+- Controller endpoint testing
+- Form submission validation
+- Edge case handling
+- Response validation
+
+### Test Coverage
+The application includes comprehensive tests for:
+- GET endpoint "/"
+- POST endpoint "/greet"
+- Valid name handling
+- Empty input validation
+- Special character handling
+- Long input handling
+
+## Running the Application
+
+Run the application (requires sudo for port 80):
+```bash
+sudo java -jar target/greeting-app-1.0-SNAPSHOT.jar
 ```
 
 ## Usage
 
-1. When you run the application, a window will appear
+1. Open your web browser and navigate to `http://localhost:80`
 2. Enter your name in the text field
 3. Click the "Greet" button
-4. A greeting message will appear below the button
+4. A personalized greeting message will appear
 
 ## Technical Details
 
-- Built with Java Swing for the GUI
-- Uses Maven for project management and building
-- Implements proper Swing threading practices using SwingUtilities.invokeLater()
-- Packaged as an executable JAR with dependencies
+- Built with Spring Boot 3.1.5
+- Uses Thymeleaf for server-side templating
+- Implements Spring MVC architecture
+- Comprehensive test suite with JUnit 5
+- CI/CD pipeline with Jenkins
+- Runs on embedded Tomcat server
+
+## Development
+
+### Running Tests
+The project includes comprehensive tests that can be run with:
+```bash
+mvn test
+```
+
+### CI/CD Pipeline
+The included Jenkinsfile provides:
+- Automated build and test execution
+- Code quality checks
+- Development and production deployments
+- Email notifications for build failures
+
+### Available Endpoints
+- GET "/" - Shows the greeting form
+- POST "/greet" - Processes the greeting request
